@@ -1,7 +1,7 @@
 @import url('../styles.css');
 
 #header.page-quem-somos {
-    background-image: url("../../images/background-quem-somos.jpg") ;
+    background-image: url("../../images/background-quem-somos.png") ;
 }
 
 #intro h2, #valores h2 {

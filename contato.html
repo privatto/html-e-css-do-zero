@@ -64,8 +64,8 @@
         </div>
         <div class="col col-desktop-6 col-6">
           <div class="input-control">
-            <textarea id="mensagem" name="mensagem" id="" cols="30" rows="10" placeholder="Mensagem..."></textarea>
-            <label for="mensagem">Telefone</label>
+            <textarea id="mensagem" name="mensagem" cols="30" rows="10" placeholder="Mensagem..."></textarea>
+            <label for="mensagem">Mensagem</label>
           </div>
         </div>
         <div class="col col-desktop-12 col-6">
@@ -119,12 +119,27 @@
       url: $('form').attr('action'),
       data: $('form').serialize(),
       success: function () {
-        alert('Email enviado com sucesso');
+    // Remove qualquer mensagem anterior
+    $('#form-message').remove();
+    // Adiciona uma nova div para a mensagem de sucesso
+    $('<div id="form-message" class="success-message">Email enviado com sucesso!</div>').insertAfter('form');
+    // Opcional: Esconde a mensagem após alguns segundos
+    setTimeout(function() { $('#form-message').fadeOut(); }, 5000);
         $('form').trigger('reset');
 
         $('form input[type="submit"]').val('Enviar')
         .attr('disabled', false);
       }
+  ,
+  error: function (jqXHR, textStatus, errorThrown) {
+    // Remove qualquer mensagem anterior
+    $('#form-message').remove();
+    // Adiciona uma nova div para a mensagem de erro
+    $('<div id="form-message" class="error-message">Ocorreu um erro ao enviar o email. Por favor, tente novamente mais tarde.</div>').insertAfter('form');
+    console.error('Erro na requisição AJAX:', textStatus, errorThrown, jqXHR);
+    $('form input[type="submit"]').val('Enviar')
+    .attr('disabled', false);
+  }
     });
   });
 </script>
